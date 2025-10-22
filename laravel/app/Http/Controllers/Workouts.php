@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\gym_progress;
-use Illuminate\Contracts\View\View;
+use App\Models\GymProgress;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class Workouts extends Controller
 {
@@ -31,8 +32,7 @@ class Workouts extends Controller
         'ponavljanja' => 'required|numeric',
         'tip_vezbe' => 'required|max:25'
     ]);
-        
-    gym_progress::create($request->all());
+    Auth::user()->gymProgress()->create($request->all());
 
     return redirect()->back()->with('success', 'Item created!');
     

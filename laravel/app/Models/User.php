@@ -7,7 +7,36 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use App\Models\GymProgress;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, GymProgress> $gymProgress
+ * @property-read int|null $gym_progress_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -23,6 +52,7 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,6 +77,11 @@ class User extends Authenticatable
         ];
     }
 
+  public function gymProgress(): HasMany {
+    return $this->hasMany(GymProgress::class); // Now matches the class name
+}
+
+ 
     /**
      * Get the user's initials
      */
@@ -57,4 +92,9 @@ class User extends Authenticatable
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+
+    public function  test () {
+       return "works";
+    } 
 }

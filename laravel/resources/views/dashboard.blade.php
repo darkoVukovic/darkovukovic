@@ -16,14 +16,16 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    @if($monday)
-                
+                    
+                    @if($monday->count() > 0)
+                    @foreach($monday as $exercie)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$monday->tip_vezbe}}</td>
-                        <td>{{$monday->max_tezina}}</td>
-                        <td>{{$monday->ponavljanja}}</td>
+                        <td>{{$exercie->tip_vezbe}}</td>
+                        <td>{{$exercie->max_tezina}}</td>
+                        <td>{{$exercie->ponavljanja}}</td>
                     </tr>
+
+                    @endforeach
                     @endif
                 </tbody>
             </table>
@@ -40,12 +42,14 @@
                 </thead>
                 <tbody>
 
-                    @if($tuesday)
+                    @if($tuesday && $tuesday->count() > 0)
+                    @foreach($tuesday as $exercie)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$tuesday->tip_vezbe}}</td>
-                        <td>{{$tuesday->max_tezina}}</td>
-                        <td>{{$tuesday->ponavljanja}}</td>
+                        <td>{{$exercie->tip_vezbe}}</td>
+                        <td>{{$exercie->max_tezina}}</td>
+                        <td>{{$exercie->ponavljanja}}</td>
                     </tr>
+                    @endforeach
                     @endif
                 </tbody>
             </table>
@@ -62,12 +66,14 @@
                 </thead>
                 <tbody>
 
-                    @if($wednesday)
+                @if($wednesday && $wednesday->count() > 0)
+                @foreach($wednesday as $exercie)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$wednesday->tip_vezbe}}</td>
-                        <td>{{$wednesday->max_tezina}}</td>
-                        <td>{{$wednesday->ponavljanja}}</td>
+                        <td>{{$exercie->tip_vezbe}}</td>
+                        <td>{{$exercie->max_tezina}}</td>
+                        <td>{{$exercie->ponavljanja}}</td>
                     </tr>
+                    @endforeach
                     @endif
                 </tbody>
             </table>
@@ -84,12 +90,14 @@
                 </thead>
                 <tbody>
 
-                    @if($thursday)
+                @if($thursday && $thursday->count() > 0)
+                @foreach($thursday as $exercie)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$thursday->tip_vezbe}}</td>
-                        <td>{{$thursday->max_tezina}}</td>
-                        <td>{{$thursday->ponavljanja}}</td>
+                        <td>{{$exercie->tip_vezbe}}</td>
+                        <td>{{$exercie->max_tezina}}</td>
+                        <td>{{$exercie->ponavljanja}}</td>
                     </tr>
+                    @endforeach
                     @endif
                 </tbody>
             </table>
@@ -106,12 +114,14 @@
                 </thead>
                 <tbody>
 
-                    @if($friday)
+                @if($friday && $friday->count() > 0)
+                 @foreach($friday as $exercie)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$friday->tip_vezbe}}</td>
-                        <td>{{$friday->max_tezina}}</td>
-                        <td>{{$friday->ponavljanja}}</td>
+                        <td>{{$exercie->tip_vezbe}}</td>
+                        <td>{{$exercie->max_tezina}}</td>
+                        <td>{{$exercie->ponavljanja}}</td>
                     </tr>
+                    @endforeach
                     @endif
                 </tbody>
             </table>
