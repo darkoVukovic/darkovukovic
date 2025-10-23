@@ -16,16 +16,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
                     @if($monday->count() > 0)
-                    @foreach($monday as $exercie)
-                    <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$exercie->tip_vezbe}}</td>
-                        <td>{{$exercie->max_tezina}}</td>
-                        <td>{{$exercie->ponavljanja}}</td>
-                    </tr>
+               @foreach($monday as $muscleGroup => $exercises)
+                <tr class="font-bold bg-gray-200">
+                    <td colspan="3">{{ $muscleGroup }}</td>
+                </tr>
 
+                    @foreach($exercises as $exercise)
+                    <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
+                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->max_tezina }}</td>
+                        <td>{{ $exercise->ponavljanja }}</td>
+                    </tr>
                     @endforeach
+                @endforeach
                     @endif
                 </tbody>
             </table>
@@ -43,13 +47,19 @@
                 <tbody>
 
                     @if($tuesday && $tuesday->count() > 0)
-                    @foreach($tuesday as $exercie)
+                     @foreach($tuesday as $muscleGroup => $exercises)
+                <tr class="font-bold bg-gray-200">
+                    <td colspan="3">{{ $muscleGroup }}</td>
+                </tr>
+
+                    @foreach($exercises as $exercise)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$exercie->tip_vezbe}}</td>
-                        <td>{{$exercie->max_tezina}}</td>
-                        <td>{{$exercie->ponavljanja}}</td>
+                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->max_tezina }}</td>
+                        <td>{{ $exercise->ponavljanja }}</td>
                     </tr>
                     @endforeach
+                @endforeach
                     @endif
                 </tbody>
             </table>
@@ -67,13 +77,19 @@
                 <tbody>
 
                 @if($wednesday && $wednesday->count() > 0)
-                @foreach($wednesday as $exercie)
+                  @foreach($wednesday as $muscleGroup => $exercises)
+                <tr class="font-bold bg-gray-200">
+                    <td colspan="3">{{ $muscleGroup }}</td>
+                </tr>
+
+                    @foreach($exercises as $exercise)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$exercie->tip_vezbe}}</td>
-                        <td>{{$exercie->max_tezina}}</td>
-                        <td>{{$exercie->ponavljanja}}</td>
+                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->max_tezina }}</td>
+                        <td>{{ $exercise->ponavljanja }}</td>
                     </tr>
                     @endforeach
+                @endforeach
                     @endif
                 </tbody>
             </table>
@@ -91,13 +107,19 @@
                 <tbody>
 
                 @if($thursday && $thursday->count() > 0)
-                @foreach($thursday as $exercie)
+                @foreach($thursday as $muscleGroup => $exercises)
+                <tr class="font-bold bg-gray-200">
+                    <td colspan="3">{{ $muscleGroup }}</td>
+                </tr>
+
+                    @foreach($exercises as $exercise)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$exercie->tip_vezbe}}</td>
-                        <td>{{$exercie->max_tezina}}</td>
-                        <td>{{$exercie->ponavljanja}}</td>
+                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->max_tezina }}</td>
+                        <td>{{ $exercise->ponavljanja }}</td>
                     </tr>
                     @endforeach
+                @endforeach
                     @endif
                 </tbody>
             </table>
@@ -115,13 +137,19 @@
                 <tbody>
 
                 @if($friday && $friday->count() > 0)
-                 @foreach($friday as $exercie)
+                  @foreach($friday as $muscleGroup => $exercises)
+                <tr class="font-bold bg-gray-200">
+                    <td colspan="3">{{ $muscleGroup }}</td>
+                </tr>
+
+                    @foreach($exercises as $exercise)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{$exercie->tip_vezbe}}</td>
-                        <td>{{$exercie->max_tezina}}</td>
-                        <td>{{$exercie->ponavljanja}}</td>
+                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->max_tezina }}</td>
+                        <td>{{ $exercise->ponavljanja }}</td>
                     </tr>
                     @endforeach
+                @endforeach
                     @endif
                 </tbody>
             </table>
@@ -139,14 +167,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($weekSummary as $item)
-                <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                    <td class="border px-2 py-1">{{ $item->Dan }}</td>
-                    <td class="border px-2 py-1">{{ $item->tip_vezbe }}</td>
-                    <td class="border px-2 py-1">{{ $item->max_tezina }}</td>
-                    <td class="border px-2 py-1">{{ $item->ponavljanja }}</td>
-                </tr>
-            @endforeach
+            
         </tbody>
     </table>
         </div>

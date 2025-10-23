@@ -25,32 +25,45 @@ class Dashboard extends Controller
       $monday = GymProgress::where('user_id', $userId)
         ->where('Dan', 'Ponedeljak')
         ->where('created_at', '>=', $startOfWeek)
+        ->with('tipVezbe')
         ->latest('created_at')
-        ->get();
+        ->get()
+        ->groupBy(fn($progress) => $progress->tipVezbe->muscle_group);
+
 
         $tuesday = GymProgress::where('user_id', $userId)
         ->where('Dan', 'Utorak')
         ->where('created_at', '>=', $startOfWeek)
+        ->with('tipVezbe')
         ->latest('created_at')
-        ->get();
+        ->get()
+        ->groupBy(fn($progress) => $progress->tipVezbe->muscle_group);
+
 
         $wednesday = GymProgress::where('user_id', $userId)
         ->where('Dan', 'Sreda')
         ->where('created_at', '>=', $startOfWeek)
+        ->with('tipVezbe')
         ->latest('created_at')
-        ->get();
+        ->get()
+        ->groupBy(fn($progress) => $progress->tipVezbe->muscle_group);
 
         $thursday = GymProgress::where('user_id', $userId)
         ->where('Dan', 'Cetvrtak')
         ->where('created_at', '>=', $startOfWeek)
+        ->with('tipVezbe')
         ->latest('created_at')
-        ->get();
+        ->get()
+        ->groupBy(fn($progress) => $progress->tipVezbe->muscle_group);
+
 
         $friday = GymProgress::where('user_id', $userId)
         ->where('Dan', 'Petak')
         ->where('created_at', '>=', $startOfWeek)
+        ->with('tipVezbe')
         ->latest('created_at')
-        ->get();
+        ->get()
+        ->groupBy(fn($progress) => $progress->tipVezbe->muscle_group);
 
 
         

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\TipVezbe;
 
 class GymProgress extends Model
 {
@@ -16,10 +17,14 @@ class GymProgress extends Model
         'Dan',
         'max_tezina',
         'ponavljanja',
-        'tip_vezbe',
         'user_id',
+        'tip_vezbe_id',
     ];
 
+  public function tipVezbe () {
+    return $this->belongsTo(TipVezbe::class, 'tip_vezbe_id');
+  } 
+  
 
   public function user(): BelongsTo {
         return $this->belongsTo(User::class);

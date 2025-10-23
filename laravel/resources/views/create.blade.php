@@ -34,6 +34,14 @@
                  <label for="ponavljanja">Ponavljanja: </label>
                 <input type="number" id="ponavljanja" name="ponavljanja">
 
+             <label for="muscle_group">Muscle Group:</label>
+            <input list="muscleGroups" name="muscle_group" id="muscle_group" placeholder="Type or select">
+            <datalist id="muscleGroups">
+                @foreach($muscleGroups as $group)
+                    <option value="{{ $group->name }}"></option>
+                @endforeach
+            </datalist>
+
                 <button class="bg-blue-500 px-4 py-2 text-white rounded">Sacuvaj</button>
             </form>
 
