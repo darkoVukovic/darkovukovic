@@ -15,16 +15,20 @@ class Workouts extends Controller
     public function  index () {
 
 
+
             return View('workouts');
 
     }
     
     public function create (): View {
 
-        return View('create');
+        $existingExercise = GymProgress::where('user_id', Auth::id())->distinct()->pluck('tip_vezbe');
+        return View('create',compact('existingExercise'));
     } 
 
     public function store (Request $request) {
+    
+        
 
     $request->validate([
         'Dan' => 'required|max:15',

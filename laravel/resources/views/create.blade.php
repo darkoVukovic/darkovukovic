@@ -6,8 +6,17 @@
                 <input type="text" id="Dan" name="Dan">
 
                  <label for="tip_vezbe">Tip vezbe</label>
-                <input type="text" id="tip_vezbe" name="tip_vezbe">
-                
+                <input type="text" id="tip_vezbe" name="tip_vezbe"
+                 list="exercises" 
+                placeholder="Unesite ili izaberite vežbu"
+                required 
+                 autocomplete="off">
+                <datalist id="exercises">
+                    
+                @foreach($existingExercise as $exercise)
+                 <option value="{{ $exercise }}">
+                @endforeach
+                </datalist>
                  <label for="max_tezina">max tezina</label>
                 <input type="number" id="max_tezina" name="max_tezina">
 
