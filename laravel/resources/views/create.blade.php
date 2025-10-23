@@ -2,10 +2,21 @@
      <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <form method="POST" action="store">
                 @csrf
-                <label for="Dan">Dan</label>
-                <input type="text" id="Dan" name="Dan">
+                <label for="Dan">Dan:</label>
+                <input type="text" id="Dan" name="Dan"
+                list="days"
+                  required 
+                 autocomplete="off">  
+                <datalist id='days'>
+                    <option value="Ponedeljak">
+                    <option value="Utorak">
+                    <option value="Sreda">
+                    <option value="Cetvrtak">
+                    <option value="Petak">
+                </datalist>
 
-                 <label for="tip_vezbe">Tip vezbe</label>
+
+                 <label for="tip_vezbe">Tip vezbe: </label>
                 <input type="text" id="tip_vezbe" name="tip_vezbe"
                  list="exercises" 
                 placeholder="Unesite ili izaberite vežbu"
@@ -17,13 +28,13 @@
                  <option value="{{ $exercise }}">
                 @endforeach
                 </datalist>
-                 <label for="max_tezina">max tezina</label>
+                 <label for="max_tezina">max tezina: </label>
                 <input type="number" id="max_tezina" name="max_tezina">
 
-                 <label for="ponavljanja">Ponavljanja</label>
+                 <label for="ponavljanja">Ponavljanja: </label>
                 <input type="number" id="ponavljanja" name="ponavljanja">
 
-                <button>Sacuvaj</button>
+                <button class="bg-blue-500 px-4 py-2 text-white rounded">Sacuvaj</button>
             </form>
 
             @if($errors->any())
