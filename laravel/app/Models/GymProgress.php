@@ -21,7 +21,7 @@ class GymProgress extends Model
         'tip_vezbe_id',
     ];
 
-  public function tipVezbe () {
+  public function tip_vezbe () {
     return $this->belongsTo(TipVezbe::class, 'tip_vezbe_id');
   } 
   
@@ -29,4 +29,6 @@ class GymProgress extends Model
   public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     } 
+
+  
 }

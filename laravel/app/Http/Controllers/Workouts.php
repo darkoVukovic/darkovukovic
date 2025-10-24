@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GymProgress;
+use App\Models\Planner;
 use App\Models\TipVezbe;
+use App\Models\GymProgress;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,6 @@ class Workouts extends Controller
 
     public function  index () {
 
-
-
             return View('workouts');
 
     }
@@ -27,9 +26,9 @@ class Workouts extends Controller
 
         //$existingExercise = GymProgress::where('user_id', Auth::id())->distinct()->pluck('tip_vezbe');
         $existingExercise = GymProgress::where('user_id', Auth::id())
-            ->with('tipVezbe')  // make sure GymProgress has: public function tipVezbe() { return $this->belongsTo(TipVezbe::class, 'tip_vezbe_id'); }
+            ->with('tip_vezbe')  // make sure GymProgress has: public function tipVezbe() { return $this->belongsTo(TipVezbe::class, 'tip_vezbe_id'); }
             ->get()
-            ->pluck('tipVezbe.naziv')
+            ->pluck('tip_vezbe.naziv')
             ->unique();
 
 
@@ -48,7 +47,7 @@ class Workouts extends Controller
         'muscle_group' => 'required|max:50', 
     ]);
 
-    $tipVezbe = TipVezbe::firstOrCreate([
+    $tip_vezbe = TipVezbe::firstOrCreate([
         'naziv' => $request->tip_vezbe,
         'muscle_group' => $request->muscle_group
      ]);
@@ -58,7 +57,7 @@ class Workouts extends Controller
     //Auth::user()->gymProgress()->create($request->all());
     Auth::user()->gymProgress()->create([
         'Dan' => $request->Dan,
-        'tip_vezbe_id' => $tipVezbe->id,
+        'tip_vezbe_id' => $tip_vezbe->id,
         'max_tezina' => $request->max_tezina,
         'ponavljanja' => $request->ponavljanja,
     ]);
@@ -66,4 +65,19 @@ class Workouts extends Controller
     return redirect()->back()->with('success', 'Item created!');
     
     } 
+
+    /*
+    public function storeFromPLanner (Request $request, Planner $planner) {
+        GymProgress::create([
+            'tip_vezbe_id' => $planner->tip_vezbe_id,
+            'Dan' => $planner->planned_date,     // or planner->planned_date if you prefer
+            'max_tezina' => $request->weight,         // actual lifted weight
+            'ponavljanja' => $request->reps,          // actual reps
+            'user_id' => Auth::id(),   
+        ]);
+
+        $planner->update(['status' => 'completed']);
+
+        return back()->with('success', 'trening sacuvan uspesno');
+    }  */
 }

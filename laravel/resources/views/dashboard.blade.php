@@ -24,7 +24,7 @@
 
                     @foreach($exercises as $exercise)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
                         <td>{{ $exercise->max_tezina }}</td>
                         <td>{{ $exercise->ponavljanja }}</td>
                     </tr>
@@ -54,7 +54,7 @@
 
                     @foreach($exercises as $exercise)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
                         <td>{{ $exercise->max_tezina }}</td>
                         <td>{{ $exercise->ponavljanja }}</td>
                     </tr>
@@ -84,7 +84,7 @@
 
                     @foreach($exercises as $exercise)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
                         <td>{{ $exercise->max_tezina }}</td>
                         <td>{{ $exercise->ponavljanja }}</td>
                     </tr>
@@ -114,7 +114,7 @@
 
                     @foreach($exercises as $exercise)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
                         <td>{{ $exercise->max_tezina }}</td>
                         <td>{{ $exercise->ponavljanja }}</td>
                     </tr>
@@ -144,7 +144,7 @@
 
                     @foreach($exercises as $exercise)
                     <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tipVezbe->naziv }}</td>
+                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
                         <td>{{ $exercise->max_tezina }}</td>
                         <td>{{ $exercise->ponavljanja }}</td>
                     </tr>

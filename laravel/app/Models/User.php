@@ -78,7 +78,7 @@ class User extends Authenticatable
     }
 
   public function gymProgress(): HasMany {
-    return $this->hasMany(GymProgress::class); // Now matches the class name
+    return $this->hasMany(GymProgress::class); 
 }
 
  
