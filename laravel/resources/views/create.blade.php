@@ -1,9 +1,9 @@
 <x-layouts.app :title="__('Dashboard')">
      <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <form method="POST" action="store">
+            <form method="POST" action="store" class="flex flex-col max-w-xl mx-auto p-4 bg-white shadow rounded space-y-4" >
                 @csrf
                 <label for="Dan">Dan:</label>
-                <input type="text" id="Dan" name="Dan"
+                <input type="text" id="Dan" name="Dan  class="input-underline""
                 list="days"
                   required 
                  autocomplete="off">  
@@ -18,6 +18,7 @@
 
                  <label for="tip_vezbe">Tip vezbe: </label>
                 <input type="text" id="tip_vezbe" name="tip_vezbe"
+                 class="input-underline"
                  list="exercises" 
                 placeholder="Unesite ili izaberite vežbu"
                 required 
@@ -29,13 +30,13 @@
                 @endforeach
                 </datalist>
                  <label for="max_tezina">max tezina: </label>
-                <input type="number" id="max_tezina" name="max_tezina">
+                <input type="number" id="max_tezina" name="max_tezina"  class="input-underline">
 
                  <label for="ponavljanja">Ponavljanja: </label>
-                <input type="number" id="ponavljanja" name="ponavljanja">
+                <input type="number" id="ponavljanja" name="ponavljanja"  class="input-underline">
 
              <label for="muscle_group">Muscle Group:</label>
-            <input list="muscleGroups" name="muscle_group" id="muscle_group" placeholder="Type or select">
+            <input list="muscleGroups" name="muscle_group" id="muscle_group" placeholder="Type or select"  class="input-underline">
             <datalist id="muscleGroups">
                 @foreach($muscleGroups as $group)
                     <option value="{{ $group->name }}"></option>

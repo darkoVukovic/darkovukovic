@@ -6,7 +6,7 @@
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl"> 
             <h1>Planner</h1>
 
-   <form action="{{ route('planner.store') }}" method="POST">
+   <form action="{{ route('planner.store') }}" method="POST" class="flex flex-col max-w-xl mx-auto p-4 bg-white shadow rounded space-y-4" >
     @csrf
 
     <label>Exercise:</label>
@@ -20,13 +20,13 @@
     <p id="lastMax" style="margin-top:5px; color:gray;">Select exercise to see heaviest weight</p>
 
     <label>Goal weight:</label>
-    <input type="number" step="0.5" name="goal_weight" id="goalWeight" required>
+    <input  class="input-underline" type="number" step="0.5" name="goal_weight" id="goalWeight" required>
 
     <label>Goal reps:</label>
-    <input type="number" name="goal_reps" value="" required>
+    <input  class="input-underline" type="number" name="goal_reps" value="" required>
 
     <label>Date:</label>
-    <input type="date" name="planned_date" value="{{ now()->toDateString() }}">
+    <input  class="input-underline" type="date" name="planned_date" value="{{ now()->toDateString() }}">
 
     <button type="submit">Add to Planner</button>
 </form>
