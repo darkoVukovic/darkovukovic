@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('planner', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tip_vezbe_id')->constrained('tip_vezbe')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('planned_date');
             $table->decimal('goal_weight', 6, 2);
             $table->integer('goal_reps');
             $table->enum('status', ['pending', 'completed', 'skipped'])->default('pending');
             $table->timestamps();
+
         });
     }
 
@@ -27,6 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('planner');
+
     }
 };

@@ -23,10 +23,11 @@ class Workouts extends Controller
     public function create (): View {
 
         $muscleGroups = TipVezbe::all();
-
+        $exercises = TipVezbe::all();
+        
         //$existingExercise = GymProgress::where('user_id', Auth::id())->distinct()->pluck('tip_vezbe');
         $existingExercise = GymProgress::where('user_id', Auth::id())
-            ->with('tip_vezbe')  // make sure GymProgress has: public function tipVezbe() { return $this->belongsTo(TipVezbe::class, 'tip_vezbe_id'); }
+            ->with('tip_vezbe')
             ->get()
             ->pluck('tip_vezbe.naziv')
             ->unique();

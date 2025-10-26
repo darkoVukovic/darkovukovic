@@ -3,12 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Planner;
+use App\Models\GymProgress;
+use Illuminate\Support\Str;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-use App\Models\GymProgress;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -81,6 +82,9 @@ class User extends Authenticatable
     return $this->hasMany(GymProgress::class); 
 }
 
+    public function planner() {
+        return $this->hasMany(Planner::class);
+    }
  
     /**
      * Get the user's initials

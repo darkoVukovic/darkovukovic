@@ -51,6 +51,10 @@ Route::get('home', [View::class, 'index']);
 
 Route::get('planner', [PlanerController::class, 'index'])->name('planner');
 Route::post('planner/add', [PlanerController::class, 'store'])->name('planner.store');
+
+Route::get('/exercise/max-weight/{id}', [PlanerController::class, 'getMaxWeight'])
+    ->name('exercise.max-weight');
+
 //Route::post('planner/complete/{planner}', [Workouts::class, 'storeFromPLanner'])->name('planner.complete');
 
 
