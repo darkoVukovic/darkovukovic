@@ -24,6 +24,7 @@ class PlanerController extends Controller
         $planner = Planner::with('tip_vezbe')
         ->where('user_id', $userId) // column name in quotes
         ->whereBetween('planned_date', [$today, $endOfWeek])
+        ->where('status', 'pending') 
         ->orderBy('planned_date')
         ->get();
 

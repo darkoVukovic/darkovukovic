@@ -63,6 +63,16 @@ class Workouts extends Controller
         'ponavljanja' => $request->ponavljanja,
     ]);
 
+     $plan = Planner::where('tip_vezbe_id', $tip_vezbe->id)
+        ->where('user_id', Auth::id())
+        ->where('planned_date', now()->toDateString())
+        ->where('status', 'pending')
+        ->first();
+
+    if ($plan) {
+        $plan->update(['status' => 'completed']);
+    }
+
     return redirect()->back()->with('success', 'Item created!');
     
     } 
