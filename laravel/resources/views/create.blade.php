@@ -3,7 +3,7 @@
             <form method="POST" action="store" class="flex flex-col max-w-xl mx-auto p-4 bg-white shadow rounded space-y-4" >
                 @csrf
                 <label for="Dan">Dan:</label>
-                <input type="text" id="Dan" name="Dan  class="input-underline""
+                <input type="text" id="Dan" name="Dan"  class="input-underline"
                 list="days"
                   required 
                  autocomplete="off">  
