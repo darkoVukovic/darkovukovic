@@ -37,8 +37,16 @@
         ({{ $plan->tip_vezbe->muscle_group }})  
         — Cilj: {{ $plan->goal_weight }}kg × {{ $plan->goal_reps }} ponavljanja  
         [{{ ucfirst($plan->status) }}]
+        <form action="{{ route('planner.destroy', $plan->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Da li ste sigurni da želite obrisati ovaj plan?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="border p-1 text-red-500 hover:underline ml-2 align-middle">
+                X
+            </button>
+        </form>
     </div>
 @endforeach
+
     </div>
         
          

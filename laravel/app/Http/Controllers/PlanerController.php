@@ -35,6 +35,17 @@ class PlanerController extends Controller
 
     } 
 
+    public function destroy(Planner $plan){
+    // Optional: check if the logged-in user owns this plan
+    if ($plan->user_id !== Auth::id()) {
+        abort(403);
+    }
+
+    $plan->delete();
+
+    return redirect()->back()->with('success', 'Plan obrisan.');
+}
+
     public function getMaxWeight ($id) {
         $userId = Auth::id();
 

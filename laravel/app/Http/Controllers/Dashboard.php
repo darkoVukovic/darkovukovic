@@ -79,4 +79,15 @@ class Dashboard extends Controller
     } 
 
 
+ public function destroy(GymProgress $progress) {
+    // Make sure the logged-in user owns this entry
+    if ($progress->user_id !== Auth::id()) {
+        abort(403, 'Unauthorized action.');
+    }
+
+    $progress->delete();
+    
+    return redirect()->back()->with('success', 'Vežba obrisana.');
+  }
+
 }

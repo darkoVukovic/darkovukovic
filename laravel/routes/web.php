@@ -33,6 +33,7 @@ Route::post('workouts/store', [Workouts::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('workouts.store');
 
+Route::middleware('auth')->delete('/gym-progress/{progress}', [Dashboard::class, 'destroy'])->name('gym-progress.destroy');
 
 
 
@@ -54,6 +55,9 @@ Route::post('planner/add', [PlanerController::class, 'store'])->name('planner.st
 
 Route::get('/exercise/max-weight/{id}', [PlanerController::class, 'getMaxWeight'])
     ->name('exercise.max-weight');
+
+
+Route::delete('/planner/{plan}', [PlanerController::class, 'destroy'])->name('planner.destroy');
 
 //Route::post('planner/complete/{planner}', [Workouts::class, 'storeFromPLanner'])->name('planner.complete');
 

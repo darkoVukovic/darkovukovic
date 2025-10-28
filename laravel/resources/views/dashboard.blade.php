@@ -23,11 +23,7 @@
                 </tr>
 
                     @foreach($exercises as $exercise)
-                    <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
-                        <td>{{ $exercise->max_tezina }}</td>
-                        <td>{{ $exercise->ponavljanja }}</td>
-                    </tr>
+                        @include('partials.exercise-row', ['exercise' => $exercise])
                     @endforeach
                 @endforeach
                     @endif
@@ -53,11 +49,7 @@
                 </tr>
 
                     @foreach($exercises as $exercise)
-                    <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
-                        <td>{{ $exercise->max_tezina }}</td>
-                        <td>{{ $exercise->ponavljanja }}</td>
-                    </tr>
+                         @include('partials.exercise-row', ['exercise' => $exercise])
                     @endforeach
                 @endforeach
                     @endif
