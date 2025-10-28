@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Carbon\Carbon;
+use App\Models\Planner;
 use App\Models\GymProgress;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -28,7 +29,7 @@ class Dashboard extends Controller
         ->with('tip_vezbe')
         ->latest('created_at')
         ->get()
-        ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
+        ->groupBy(fn($progress) => ucfirst(strtolower($progress->tip_vezbe->muscle_group)));
 
 
         $tuesday = GymProgress::where('user_id', $userId)
@@ -66,16 +67,27 @@ class Dashboard extends Controller
         ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
 
 
+          $today = Carbon::today();
         
-        $weekSummary = $weekSummary = collect([])
-    ->merge($monday)
-    ->merge($tuesday)
-    ->merge($wednesday)
-    ->merge($thursday)
-    ->merge($friday);
-        
+
+       $endOfWeek = $today->copy()->endOfWeek();
+
+ // Get this week's planned workouts
+$weeklyPlans = Planner::where('user_id', $userId)
+                      ->whereBetween('planned_date', [$startOfWeek, $endOfWeek])
+                      ->with('tip_vezbe')
+                      ->get();
+
+
+// Get completed workouts this week
+$completed = GymProgress::where('user_id', $userId)
+                        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                        ->get()
+                        ->keyBy(fn($p) =>  strtolower($p->tip_vezbe->naziv)); // lowercase key
+
+
        return View('dashboard', compact(
-    'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'weekSummary'));
+    'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'weeklyPlans', 'completed'));
     } 
 
 

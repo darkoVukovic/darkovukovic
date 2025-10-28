@@ -75,11 +75,7 @@
                 </tr>
 
                     @foreach($exercises as $exercise)
-                    <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
-                        <td>{{ $exercise->max_tezina }}</td>
-                        <td>{{ $exercise->ponavljanja }}</td>
-                    </tr>
+                        @include('partials.exercise-row', ['exercise' => $exercise])
                     @endforeach
                 @endforeach
                     @endif
@@ -105,11 +101,7 @@
                 </tr>
 
                     @foreach($exercises as $exercise)
-                    <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
-                        <td>{{ $exercise->max_tezina }}</td>
-                        <td>{{ $exercise->ponavljanja }}</td>
-                    </tr>
+                        @include('partials.exercise-row', ['exercise' => $exercise])
                     @endforeach
                 @endforeach
                     @endif
@@ -135,11 +127,7 @@
                 </tr>
 
                     @foreach($exercises as $exercise)
-                    <tr class="even:bg-neutral-50 dark:even:bg-neutral-800">
-                        <td>{{ $exercise->tip_vezbe->naziv }}</td>
-                        <td>{{ $exercise->max_tezina }}</td>
-                        <td>{{ $exercise->ponavljanja }}</td>
-                    </tr>
+                     @include('partials.exercise-row', ['exercise' => $exercise])
                     @endforeach
                 @endforeach
                     @endif
@@ -149,19 +137,25 @@
         </div>
         <div class=" h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <h2>Nedeljni pregled</h2>
-                <table class="w-full text-left table-auto border-collapse">
-        <thead>
-            <tr class="bg-neutral-100 dark:bg-neutral-700">
-                <th class="border px-2 py-1">Dan</th>
-                <th class="border px-2 py-1">Vezba</th>
-                <th class="border px-2 py-1">Tezina (kg)</th>
-                <th class="border px-2 py-1">Ponavljanja</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table>
+         @foreach ($weeklyPlans as $plan)
+    @php
+        $workout = $completed[$plan->tip_vezbe->naziv] ?? null;
+
+        $achieved = $workout && $workout->max_tezina >= $plan->goal_weight;
+    @endphp
+    <div>
+        {{ $plan->tip_vezbe->naziv }} ({{ $plan->tip_vezbe->muscle_group }}) — 
+        Cilj: {{ number_format($plan->goal_weight, 2) }}kg × {{ $plan->goal_reps }} ponavljanja:
+        planiran datum rada: {{ $plan->planned_date }}
+        @if (!$workout)
+            <span style="color: gray;">[Pending]</span>
+        @elseif ($achieved)
+            <span style="color: green;">✔</span>
+        @else
+            <span style="color: red;">✖</span>
+        @endif
+    </div>
+@endforeach
         </div>
     </div>
 </x-layouts.app>

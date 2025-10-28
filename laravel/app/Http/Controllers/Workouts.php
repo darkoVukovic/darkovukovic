@@ -63,12 +63,13 @@ class Workouts extends Controller
         'ponavljanja' => $request->ponavljanja,
     ]);
 
-     $plan = Planner::where('tip_vezbe_id', $tip_vezbe->id)
-        ->where('user_id', Auth::id())
-        ->where('planned_date', now()->toDateString())
-        ->where('status', 'pending')
-        ->first();
+   $plan = Planner::where('tip_vezbe_id', $tip_vezbe->id)
+    ->where('user_id', Auth::id())
+    ->where('status', 'pending')
+    ->orderBy('planned_date', 'asc') // optional: get the oldest first
+    ->first();
 
+    
     if ($plan) {
         $plan->update(['status' => 'completed']);
     }
