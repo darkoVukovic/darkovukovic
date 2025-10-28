@@ -23,7 +23,7 @@ class PlanerController extends Controller
 
         $planner = Planner::with('tip_vezbe')
         ->where('user_id', $userId) // column name in quotes
-        ->whereBetween('planned_date', [$today, $endOfWeek])
+        ->whereBetween('planned_date', [$startOfWeek, $endOfWeek]) // change to start of the week so i can delete bad inputs (it was today before )
         ->where('status', 'pending') 
         ->orderBy('planned_date')
         ->get();
