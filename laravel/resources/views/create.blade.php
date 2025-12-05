@@ -1,6 +1,7 @@
 <x-layouts.app :title="__('Dashboard')">
      <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <form method="POST" action="store" class="flex flex-col max-w-xl mx-auto p-4 bg-white shadow rounded space-y-4" >
+           <div class="flex items-center justify-center min-h-screen">
+            <form method="POST" action="store" class="flex flex-col max-w-xl mx-auto p-4 w-full  bg-white shadow rounded space-y-4" >
                 @csrf
                 <label for="Dan">Dan:</label>
                 <input type="text" id="Dan" name="Dan"  class="input-underline"
@@ -43,9 +44,9 @@
                 @endforeach
             </datalist>
 
-                <button class="bg-blue-500 px-4 py-2 text-white rounded">Sacuvaj</button>
+                <button class="bg-pink-500 px-4 py-6 text-white rounded-xl text-2xl bold">Sacuvaj</button>
             </form>
-
+        </div>
             @if($errors->any())
             <div class="alert alert-danger">
                 <ul>

@@ -154,6 +154,7 @@
         @else
             <span style="color: red;">✖</span>
         @endif
+       <hr class="m-2" >
     </div>
 @endforeach
         </div>
