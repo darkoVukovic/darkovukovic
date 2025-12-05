@@ -44,7 +44,7 @@
                 @endforeach
             </datalist>
 
-                <button class="bg-pink-500 px-4 py-6 text-white rounded-xl text-2xl bold">Sacuvaj</button>
+                <button class="bg-pink-500 px-4 py-6 text-white rounded-xl text-2xl ">Sacuvaj</button>
             </form>
         </div>
             @if($errors->any())
