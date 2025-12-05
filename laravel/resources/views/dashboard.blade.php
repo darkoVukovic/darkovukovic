@@ -1,7 +1,6 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="my-5">
             <h3 class="text-center">{{$vreme}}</h3>
-
     </div>
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -137,11 +136,14 @@
         </div>
         <div class=" h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <h2>Nedeljni pregled</h2>
+            
          @foreach ($weeklyPlans as $plan)
     @php
-        $workout = $completed[$plan->tip_vezbe->naziv] ?? null;
 
+        $workout = $completed[strtolower($plan->tip_vezbe->naziv)] ?? null;
+        
         $achieved = $workout && $workout->max_tezina >= $plan->goal_weight;
+
     @endphp
     <div>
         {{ $plan->tip_vezbe->naziv }} ({{ $plan->tip_vezbe->muscle_group }}) — 
@@ -154,7 +156,6 @@
         @else
             <span style="color: red;">✖</span>
         @endif
-       <hr class="m-2" >
     </div>
 @endforeach
         </div>

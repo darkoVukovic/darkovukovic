@@ -85,7 +85,7 @@ $completed = GymProgress::where('user_id', $userId)
                         ->get()
                         ->keyBy(fn($p) =>  strtolower($p->tip_vezbe->naziv)); // lowercase key
 
-
+      
        return View('dashboard', compact(
     'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'weeklyPlans', 'completed'));
     } 

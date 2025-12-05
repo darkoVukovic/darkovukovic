@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-blue dark:bg-zinc-800">
+    <body class="min-h-screen bg-blue dark:bg-zinc-800 dark">
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-51 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
@@ -11,10 +11,10 @@
             </a>
 
             <flux:navlist>
-                <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('workouts')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Workouts') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('planner')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Planner') }}</flux:navlist.item>
+                <flux:navlist.group :heading="__('Kontrolna tabla')" class="grid">
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('workouts')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Workouts') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('planner')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Planner') }}</flux:navlist.item>
                 </flux:navlist.group>
 
             </flux:navlist>
@@ -43,7 +43,7 @@
                                     </span>
                                 </span>
 
-                                <div class="grid flex-1 text-start text-sm leading-tight">
+                                <div class="grid flex-1 text-start text-sm leading-tight text-white">
                                     <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
                                     <span class="truncate text-xs">{{ auth()->user()->email }}</span>
                                 </div>
@@ -83,7 +83,7 @@
 
                 <flux:menu>
                     <flux:menu.radio.group>
-                        <div class="p-0 text-sm font-normal">
+                        <div class="p-0 text-sm font-normal text-white">
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                                 <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
                                     <span

@@ -22,7 +22,7 @@
     --color-zinc-600: #525252;
     --color-zinc-700: #404040;
     --color-zinc-800: #FFF;
-    --color-zinc-900: #171717;
+    --color-zinc-900: #0f1729; /* glavna background tema */
     --color-zinc-950: #0a0a0a;
 
     --color-accent: var(--color-neutral-800);
@@ -43,11 +43,7 @@
 }
 
 @layer theme {
-    .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
-    }
+ 
 }
 
 @layer base {
@@ -148,3 +144,8 @@ th, td {
   color: #ffffff !important;
   border-color: #2a3647 !important;
 }
+
+button {
+  cursor: pointer !important;
+}
+

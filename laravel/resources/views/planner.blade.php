@@ -1,24 +1,20 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="my-5">
-            <h3 class="text-center">{{$vreme}}</h3>
 
     </div>
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl"> 
-            <h1>Planner</h1>
+            <h1 class="text-center text-3xl">Planer {{$vreme}}</h1>
 
-   <form action="{{ route('planner.store') }}" method="POST" class="flex flex-col max-w-xl mx-auto p-4 bg-white shadow rounded space-y-4" >
+   <form action="{{ route('planner.store') }}" method="POST" class="flex flex-col max-w-xl mx-auto w-full p-4 bg-white shadow rounded space-y-4" >
     @csrf
 
-    <label>Exercise:</label>
+    <label>Vezba:</label>
     <select name="tip_vezbe_id" id="exerciseSelect">
-        <option value="">-- Select exercise --</option>
+        <option value="">-- Izaberi vezbu --</option>
         @foreach($exercises as $ex)
             <option value="{{ $ex->id }}">{{ $ex->naziv }} ({{ $ex->muscle_group }})</option>
         @endforeach
     </select>
-
-    <p id="lastMax" style="margin-top:5px; color:gray;">Select exercise to see heaviest weight</p>
-
     <label>Goal weight:</label>
     <input  class="input-underline" type="number" step="0.5" name="goal_weight" id="goalWeight" required>
 
@@ -27,10 +23,11 @@
 
     <label>Date:</label>
     <input  class="input-underline" type="date" name="planned_date" value="{{ now()->toDateString() }}">
-
-    <button type="submit">Add to Planner</button>
+    <p id="lastMax" class="text-white text-xl text-center">Rekord za vezbu</p>
+    <button type="submit" class="bg-pink-500 px-4 py-6 text-white rounded-xl text-xl">DODAJ U PLANER</button>
 </form>
-    
+    <hr />
+    <h2>Plan za celu nedelju</h2>
   @foreach($planner as $plan)
     <div style="margin-bottom: 15px;">
         <strong>{{ $plan->tip_vezbe->naziv }}</strong>
@@ -73,14 +70,14 @@ document.getElementById('exerciseSelect').addEventListener('change', async funct
         const data = await response.json();
 
         if (data.max_tezina && data.max_tezina > 0) {
-            display.textContent = `Heaviest so far: ${data.max_tezina} kg`;
+            display.textContent = `Rekord: ${data.max_tezina} kg`;
         } else {
-            display.textContent = "No previous records yet.";
+            display.textContent = "Nema rekorda jos.";
             goal.value = "";
         }
     } catch (err) {
         console.error("Error fetching max weight:", err);
-        display.textContent = "Could not load heaviest weight.";
+        display.textContent = "Neuspesno uzimanje rekord-a.";
     }
 });
 </script>
