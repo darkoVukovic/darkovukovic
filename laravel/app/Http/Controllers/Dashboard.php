@@ -67,6 +67,23 @@ class Dashboard extends Controller
         ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
 
 
+        $saturday = GymProgress::where('user_id', $userId)
+        ->where('Dan', 'Subota')
+        ->where('created_at', '>=', $startOfWeek)
+        ->with('tip_vezbe')
+        ->latest('created_at')
+        ->get()
+        ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
+
+        $sunday = GymProgress::where('user_id', $userId)
+        ->where('Dan', 'Nedelja')
+        ->where('created_at', '>=', $startOfWeek)
+        ->with('tip_vezbe')
+        ->latest('created_at')
+        ->get()
+        ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
+
+
           $today = Carbon::today();
         
 
@@ -87,7 +104,7 @@ $completed = GymProgress::where('user_id', $userId)
 
       
        return View('dashboard', compact(
-    'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'weeklyPlans', 'completed'));
+    'monday', 'tuesday', 'wednesday', 'thursday', 'friday','saturday', 'sunday', 'weeklyPlans', 'completed'));
     } 
 
 

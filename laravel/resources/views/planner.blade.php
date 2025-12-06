@@ -28,19 +28,40 @@
 </form>
     <hr />
     <h2>Plan za celu nedelju</h2>
-  @foreach($planner as $plan)
-    <div style="margin-bottom: 15px;">
-        <strong>{{ $plan->tip_vezbe->naziv }}</strong>
-        ({{ $plan->tip_vezbe->muscle_group }})  
-        — Cilj: {{ $plan->goal_weight }}kg × {{ $plan->goal_reps }} ponavljanja  
-        [{{ ucfirst($plan->status) }}]
-        <form action="{{ route('planner.destroy', $plan->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Da li ste sigurni da želite obrisati ovaj plan?')">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="border p-1 text-red-500 hover:underline ml-2 align-middle">
-                X
-            </button>
-        </form>
+@foreach($planner as $plan)
+    <div class="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow mb-3" style="background-color: #1a1d2e; border-color: #ff006e; box-shadow: 0 0 15px rgba(255, 0, 110, 0.2);">
+        <div class="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
+            <div class="flex-1 min-w-0">
+                <h3 class="font-semibold text-lg" style="color: #f8fafc;">
+                    {{ $plan->tip_vezbe->naziv }}
+                    <span class="inline-block ml-2 px-2 py-0.5 rounded text-xs font-medium" style="background-color: rgba(255, 0, 110, 0.2); color: #ff006e;">
+                        {{ $plan->tip_vezbe->muscle_group }}
+                    </span>
+                </h3>
+                
+                <div class="mt-2 text-sm space-y-0.5" style="color: #cbd5e1;">
+                    <p><strong>Cilj:</strong> {{ $plan->goal_weight }}kg × {{ $plan->goal_reps }} ponavljanja</p>
+                    <p>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium" 
+                              style="background-color: {{ $plan->status === 'completed' ? 'rgba(34, 197, 94, 0.2)' : 'rgba(148, 163, 184, 0.2)' }}; 
+                                     color: {{ $plan->status === 'completed' ? '#4ade80' : '#94a3b8' }};">
+                            {{ ucfirst($plan->status) }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex-shrink-0">
+                <form action="{{ route('planner.destroy', $plan->id) }}" method="POST" onsubmit="return confirm('Da li ste sigurni da želite obrisati ovaj plan?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all hover:scale-105" 
+                            style="background-color: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444;">
+                        ✕ Obriši
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 @endforeach
 
