@@ -8,6 +8,9 @@ use App\Livewire\Settings\Password;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlanerController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,6 +61,19 @@ Route::delete('/planner/{plan}', [PlanerController::class, 'destroy'])->name('pl
 
 //Route::post('planner/complete/{planner}', [Workouts::class, 'storeFromPLanner'])->name('planner.complete');
 
+
+
+/**
+ * finance route
+ * 
+ */
+
+Route::middleware('auth')->group(function () {
+    Route::get('finance', [FinanceController::class, 'index'])->name('finance');
+    Route::resource('transactions', TransactionController::class);
+    Route::resource('accounts', AccountController::class);
+
+});
 
 
 

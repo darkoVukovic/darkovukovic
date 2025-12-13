@@ -78,14 +78,26 @@ class User extends Authenticatable
         ];
     }
 
-  public function gymProgress(): HasMany {
-    return $this->hasMany(GymProgress::class); 
-}
+    public function gymProgress(): HasMany {
+        return $this->hasMany(GymProgress::class); 
+    }
 
     public function planner() {
         return $this->hasMany(Planner::class);
     }
  
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+
+
     /**
      * Get the user's initials
      */

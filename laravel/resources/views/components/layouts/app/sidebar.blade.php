@@ -12,15 +12,18 @@
 
             <flux:navlist>
                 <flux:navlist.group :heading="__('Kontrolna tabla')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('workouts')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Workouts') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('planner')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Planner') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Pregledna tabla') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('workouts')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Vezbe') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('planner')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Planer teretane') }}</flux:navlist.item>
                 </flux:navlist.group>
 
+                 <flux:navlist.group :heading="__('Finansije')" class="grid mt-5">
+                    <flux:navlist.item icon="home" :href="route('finance')" :current="request()->routeIs('finance')" class="mt-4" wire:navigate>{{ __('Finansije') }}</flux:navlist.item>
+                </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />
-
+            
        
 
             <!-- Desktop User Menu -->
@@ -30,7 +33,7 @@
                     :initials="auth()->user()->initials()"
                     icon-trailing="chevrons-up-down"
                 />
-
+            
                 <flux:menu class="w-[220px]">
                     <flux:menu.radio.group>
                         <div class="p-0 text-sm font-normal">

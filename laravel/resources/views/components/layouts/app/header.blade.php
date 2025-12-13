@@ -41,7 +41,7 @@
                         label="Documentation"
                     />
                 </flux:tooltip>
-            </flux:navbar>
+            </flux:navbar>  
 
             <!-- Desktop User Menu -->
             <flux:dropdown position="top" align="end">
