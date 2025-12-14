@@ -7,6 +7,18 @@
         <div class="bg-gray-800 rounded-lg border-2 border-[#ff006e] p-6">
             <form action="{{ route('accounts.store') }}" method="POST" class="flex flex-col max-w-xl mx-auto w-full p-4 bg-white shadow rounded space-y-4">
                 @csrf
+                    <!-- Error Summary -->
+    @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <strong class="font-bold">Greške:</strong>
+            <ul class="list-disc list-inside mt-2">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
                 <label class="text-white">Naziv Racuna</label>
                 <input type="text"      name="name" 
                         placeholder="Tekući račun, Keš, Štednja..." 

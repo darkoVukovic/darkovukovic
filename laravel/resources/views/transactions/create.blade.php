@@ -6,99 +6,70 @@
         </div>
 
         <div class="bg-gray-800 rounded-lg border-2 border-[#ff006e] p-6">
-            <form action="{{ route('transactions.store') }}" method="POST">
+            <form action="{{ route('transactions.store') }}" method="POST"  class="flex flex-col max-w-xl mx-auto w-full p-4 bg-white shadow rounded space-y-4">
                 @csrf
-
+                    <!-- Error Summary -->
+                   @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <strong class="font-bold">Greške:</strong>
+            <ul class="list-disc list-inside mt-2">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
                 <!-- Account Selection -->
-                <flux:field>
-                    <flux:label>Račun</flux:label>
-                    <flux:select name="account_id" required>
-                        <option value="">Izaberi račun</option>
-                        @foreach($accounts as $account)
-                            <option value="{{ $account->id }}">
-                                {{ $account->name }} ({{ $account->balance }} {{ $account->currency }})
-                            </option>
-                        @endforeach
-                    </flux:select>
-                    <flux:error name="account_id" />
-                </flux:field>
+             <label class="text-white">Račun</label>
+                <select name="account_id" required>
+                    <option value="">Izaberi račun</option>
+                    @foreach($accounts as $account)
+                        <option value="{{ $account->id }}">
+                            {{ $account->name }} ({{ $account->balance }} {{ $account->currency }})
+                        </option>
+                    @endforeach
+                </select>
 
+             <label class="text-white">Tip</label>
+                <select name="type" required>
+                    <option value="">Izaberi tip</option>
+                    <option value="income">Prihod</option>
+                    <option value="expense">Rashod</option>
+                </select>
                 <!-- Type Selection -->
-                <flux:field>
-                    <flux:label>Tip</flux:label>
-                    <flux:select name="type" required>
-                        <option value="">Izaberi tip</option>
-                        <option value="income">Prihod</option>
-                        <option value="expense">Rashod</option>
-                        <option value="transfer">Transfer</option>
-                    </flux:select>
-                    <flux:error name="type" />
-                </flux:field>
+                <label>Kategorija</label>
+                <input type="text" name="category" placeholder="Hrana, Transport, Plata..." required>
 
-                <!-- Category -->
-                <flux:field>
-                    <flux:label>Kategorija</flux:label>
-                    <flux:input name="category" placeholder="Hrana, Transport, Plata..." required />
-                    <flux:error name="category" />
-                </flux:field>
-
-                <!-- Amount -->
-                <flux:field>
-                    <flux:label>Iznos</flux:label>
-                    <flux:input 
-                        type="number" 
+                <label>Iznos</label>
+                <input     type="number" 
                         name="amount" 
                         step="0.01" 
                         placeholder="0.00" 
-                        required 
-                    />
-                    <flux:error name="amount" />
-                </flux:field>
-
+                        required >
+        
+                <label>Valuta</label>
+                <select name="currency" required>
+                    <option value="RSD">RSD - Dinar</option>
+                    <option value="EUR">EUR - Evro</option>
+                </select>
                 <!-- Currency -->
-                <flux:field>
-                    <flux:label>Valuta</flux:label>
-                    <flux:select name="currency" required>
-                        <option value="RSD">RSD - Dinar</option>
-                        <option value="EUR">EUR - Evro</option>
-                    </flux:select>
-                    <flux:error name="currency" />
-                </flux:field>
-
-                <!-- Date -->
-                <flux:field>
-                    <flux:label>Datum</flux:label>
-                    <flux:input 
-                        type="date" 
+                <label>Datum</label>
+                <input     type="date" 
                         name="date" 
                         value="{{ date('Y-m-d') }}" 
-                        required 
-                    />
-                    <flux:error name="date" />
-                </flux:field>
-
-                <!-- Description -->
-                <flux:field>
-                    <flux:label>Opis (opciono)</flux:label>
-                    <flux:textarea 
-                        name="description" 
+                        required >
+                <!-- Date -->
+                <label>Opis (opciono)</label>
+                <textarea name="description"
                         placeholder="Dodatne informacije..."
-                        rows="3"
-                    />
-                    <flux:error name="description" />
-                </flux:field>
-
+                        rows="3"></textarea>
+                <!-- Description -->
+              
                 <!-- Buttons -->
                 <div class="flex gap-4 mt-6">
-                    <flux:button type="submit" class="bg-[#ff006e] hover:bg-[#cc0058]">
-                        Sačuvaj transakciju
-                    </flux:button>
-                    <flux:button 
-                        variant="ghost" 
-                        href="{{ route('finance') }}"
-                    >
-                        Otkaži
-                    </flux:button>
+                <button 
+                type="submit" 
+                class="bg-pink-500 px-4 py-6 text-white rounded-xl text-xl">Sacuvaj transakciju</button>
                 </div>
             </form>
         </div>

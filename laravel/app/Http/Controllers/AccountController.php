@@ -66,15 +66,22 @@ class AccountController extends Controller
             ->with('success', 'Račun uspešno ažuriran!');
     }
 
-    public function destroy(Account $account)
-    {
-        if ($account->user_id !== Auth::id()) {
-            abort(403);
+        public function destroy(Account $account)
+        {
+            // Security check
+            if ($account->user_id !== Auth::id()) {
+                abort(403, 'Unauthorized');
+            }
+
+            // Proveri da li račun ima transakcije
+            if ($account->transactions()->count() > 0) {
+                return redirect()->route('finance')
+                    ->with('error', 'Ne možete obrisati račun koji ima transakcije!');
+            }
+
+            $account->delete();
+
+            return redirect()->route('finance')
+                ->with('success', 'Račun uspešno obrisan!');
         }
-
-        $account->delete();
-
-        return redirect()->route('finance')
-            ->with('success', 'Račun obrisan!');
-    }
 }

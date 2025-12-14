@@ -1,3 +1,22 @@
+<div class="fixed top-4 right-4 z-50 space-y-2">
+    @if(session('success'))
+        <div class="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <span>{{ session('error') }}</span>
+        </div>
+    @endif
+</div>
 <x-layouts.app :title="__('Dashboard')">
     <div class="my-5">
         <div class="flex justify-between items-center mb-6">
@@ -30,10 +49,24 @@
             <div class="bg-gray-800 rounded-lg border-2 border-[#ff006e] p-6 md:col-span-2">
                 <h3 class="text-gray-400 text-sm mb-4">Računi</h3>
                 <div class="space-y-3">
-                @foreach($balans as $v)
-                    <div class="flex justify-between">
-                        <span class="text-white">{{$v->name}}</span>
-                        <span class="font-semibold text-white">{{number_format($v->balance, 0)}} {{$v->currency}}</span>
+                @foreach($balans as $account)
+                <div class="flex justify-between items-center hover:bg-[#3D2B3E] p-2 rounded transition">
+                    <span class="text-white">{{ $account->name }}</span>
+                    <div class="flex items-center gap-3">
+                        <span class="font-semibold text-blue-500">
+                            {{ number_format($account->balance, 2) }} {{ $account->currency }}
+                        </span>
+                        
+                        <!-- Delete Button -->
+                        <form action="{{ route('accounts.destroy', $account) }}" method="POST" 
+                            onsubmit="return confirm('Da li ste sigurni? Ovo će obrisati račun i sve transakcije!')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500 hover:text-red-700 text-sm">
+                                🗑️
+                            </button>
+                        </form>
+                        </div>
                     </div>
                 @endforeach
                 </div>
@@ -77,22 +110,31 @@
         <div class="bg-gray-800  rounded-lg p-6 mt-6">
             <h3 class="text-gray-400 text-sm mb-4">Poslednje Transakcije</h3>
             <div class="space-y-3">
-                <div class="flex justify-between items-center border-b border-gray-700 pb-3">
-                    <div>
-                        <p class="text-white font-medium">Monster</p>
-                        <p class="text-gray-400 text-sm">12.12.2025</p>
-                    </div>
-                    <span class="text-red-500 font-semibold">-200 RSD</span>
+                @foreach($transactionsPaginate as $v) 
+            <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                <div>
+                    <p class="text-white font-medium">{{ $v->description }}</p>
+                    <p class="text-gray-400 text-sm">{{ $v->created_at }}</p>
                 </div>
-                <div class="flex justify-between items-center border-b border-gray-700 pb-3">
-                    <div>
-                        <p class="text-white font-medium">Monster</p>
-                        <p class="text-gray-400 text-sm">12.12.2025</p>
-                    </div>
-                    <span class="text-red-500 font-semibold">-200 RSD</span>
-                </div>
-                <!-- repeat -->
+                        <div class="flex items-center gap-4">
+
+                <span class="{{ $v->type == 'income' ? 'text-green-500' : 'text-red-500' }} font-semibold">
+                    {{ $v->type == 'income' ? '+' : '-' }} {{ number_format($v->amount, 0) }} {{$v->currency}}
+                </span>
+                 <form action="{{ route('transactions.destroy', $v) }}" method="POST" onsubmit="return confirm('Da li ste sigurni da želite da obrišete ovu transakciju?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-red-500 hover:text-red-700 text-sm">
+                    Obriši
+                </button>
+            </form>
+        </div>
             </div>
+        @endforeach
+            </div>
+             <div class="mt-4">
+        {{ $transactionsPaginate->links() }}
+    </div>
         </div>
     </div>
     
