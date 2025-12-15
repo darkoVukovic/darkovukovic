@@ -143,9 +143,16 @@ tbody tr:hover {
 th, td {
   color: #ffffff !important;
   border-color: #2a3647 !important;
+  min-width: 250px;
 }
 
 button {
   cursor: pointer !important;
 }
 
+/* Mobile Fix */
+@media (max-width: 768px) {
+  th, td {
+    min-width: 100px; /* Overrides the desktop min-width */
+  }
+}
