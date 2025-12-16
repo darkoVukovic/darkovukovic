@@ -13,8 +13,11 @@
             <flux:navlist>
                 <flux:navlist.group :heading="__('Kontrolna tabla')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Pregledna tabla') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('workouts')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Vezbe') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('planner')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Planer teretane') }}</flux:navlist.item>
+                    <flux:navlist.item icon="bolt" :href="route('workouts')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Vezbe') }}</flux:navlist.item>
+                    <flux:navlist.item icon="calendar" :href="route('planner')" :current="request()->routeIs('dashboard')" class="mt-4" wire:navigate>{{ __('Planer teretane') }}</flux:navlist.item>
+                        <flux:navlist.item icon="trophy" :href="route('records')" :current="request()->routeIs('records')" class="mt-4" wire:navigate>
+                            {{ __('Rekordi (PR)') }}
+                        </flux:navlist.item>
                 </flux:navlist.group>
 
                  <flux:navlist.group :heading="__('Finansije')" class="grid mt-5">

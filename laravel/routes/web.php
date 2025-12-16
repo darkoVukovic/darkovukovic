@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlanerController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\RecordsController;
 use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
@@ -61,6 +62,11 @@ Route::delete('/planner/{plan}', [PlanerController::class, 'destroy'])->name('pl
 
 //Route::post('planner/complete/{planner}', [Workouts::class, 'storeFromPLanner'])->name('planner.complete');
 
+// records routes
+
+Route::middleware(['auth'])->group(function () {
+    route::get('/records', [RecordsController::class, 'index'])->name('records');
+});
 
 
 /**
