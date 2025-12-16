@@ -3,32 +3,32 @@
         <h1 class="text-3xl font-bold mb-6">Lični rekordi 🏆</h1>
         
         <!-- Search Bar -->
-        <div class="mb-6">
-            <form action="{{ route('records') }}" method="GET">
-                <div class="flex gap-2">
-                    <input 
-                        type="text" 
-                        name="search" 
-                        value="{{ request('search') }}"
-                        placeholder="Pretraži vežbe..." 
-                        class="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff006e]"
-                    >
-                    <button 
-                        type="submit" 
-                        class="bg-[#ff006e] hover:bg-[#cc0058] text-white px-6 py-2 rounded-lg"
-                    >
-                        🔍 Pretraži
-                    </button>
-                    @if(request('search'))
-                        <a 
-                            href="{{ route('records') }}" 
-                            class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg"
-                        >
-                            ✖ Očisti
-                        </a>
-                    @endif
-                </div>
-            </form>
+        <div class="mb-6 ">
+           <form action="{{ route('records') }}" method="GET">
+        <div class="flex flex-col sm:flex-row gap-2">
+            <input 
+                type="text" 
+                name="search" 
+                value="{{ request('search') }}"
+                placeholder="Pretraži vežbe..." 
+                class="flex-1 bg-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#ff006e]"
+            >
+            <button 
+                type="submit" 
+                class="bg-[#ff006e] hover:bg-[#cc0058] text-white px-4 sm:px-6 py-2 rounded-lg whitespace-nowrap"
+            >
+                🔍 Pretraži
+            </button>
+            @if(request('search'))
+                <a 
+                    href="{{ route('records') }}" 
+                    class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-center whitespace-nowrap"
+                >
+                    ✖ Očisti
+                </a>
+            @endif
+        </div>
+    </form>
         </div>
         
         <div class="grid gap-4">
@@ -40,7 +40,8 @@
                             <p class="text-gray-400 text-sm">{{ $record->tip_vezbe->muscle_group }}</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-4xl font-bold text-[#ff006e]">{{ $record->personal_record }} kg</p>
+                            <p class="text-4xl font-bold text-[#ff006e]">{{ $record->personal_record }}</p>
+                            <p>KG</p>
                             <p class="text-gray-400 text-sm">Lični rekord</p>
                         </div>
                     </div>
