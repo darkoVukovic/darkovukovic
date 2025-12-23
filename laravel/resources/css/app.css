@@ -143,8 +143,29 @@ tbody tr:hover {
 th, td {
   color: #ffffff !important;
   border-color: #2a3647 !important;
-  min-width: 250px;
 }
+
+/* Prva kolona (Vezba) - najšira */
+th:nth-child(1), td:nth-child(1) {
+    min-width: 200px;
+}
+
+/* Tezina */
+th:nth-child(2), td:nth-child(2) {
+    min-width: 80px;
+}
+
+/* Ponavljanja */
+th:nth-child(3), td:nth-child(3) {
+    min-width: 100px;
+}
+
+/* Akcija (trash ikona) */
+th:nth-child(4), td:nth-child(4) {
+    min-width: 60px;
+    width: 60px;
+}
+
 
 button {
   cursor: pointer !important;
@@ -152,7 +173,20 @@ button {
 
 /* Mobile Fix */
 @media (max-width: 768px) {
-  th, td {
-    min-width: 100px; /* Overrides the desktop min-width */
-  }
+    th:nth-child(1), td:nth-child(1) {
+        min-width: 100px; /* Vezba - manji ali još uvek čitljivo */
+    }
+
+    th:nth-child(2), td:nth-child(2) {
+        min-width: 60px; /* Tezina */
+    }
+
+    th:nth-child(3), td:nth-child(3) {
+        min-width: 80px; /* Ponavljanja */
+    }
+
+    th:nth-child(4), td:nth-child(4) {
+        min-width: 50px; /* Akcija - samo ikona */
+        width: 50px;
+    }
 }
