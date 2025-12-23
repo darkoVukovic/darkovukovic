@@ -16,7 +16,7 @@
         @endforeach
     </select>
     <label>Goal weight:</label>
-    <input  class="input-underline" type="number" step="0.5" name="goal_weight" id="goalWeight" required>
+    <input  class="input-underline" type="number" step="0.1" min=0 name="goal_weight" id="goalWeight" required>
 
     <label>Goal reps:</label>
     <input  class="input-underline" type="number" name="goal_reps" value="" required>
@@ -89,9 +89,9 @@ document.getElementById('exerciseSelect').addEventListener('change', async funct
     try {
         const response = await fetch(`/exercise/max-weight/${id}`);
         const data = await response.json();
-
         if (data.max_tezina && data.max_tezina > 0) {
-            display.textContent = `Rekord: ${data.max_tezina} kg`;
+                        display.textContent = `Rekord: ${data.max_tezina} kg`;
+
         } else {
             display.textContent = "Nema rekorda jos.";
             goal.value = "";

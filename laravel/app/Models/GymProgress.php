@@ -12,7 +12,9 @@ class GymProgress extends Model
 
      protected $table = 'gym_progress';
 
-
+      protected $casts = [
+          'max_tezina' => 'decimal:2',
+      ];
    protected $fillable = [
         'Dan',
         'max_tezina',

@@ -31,7 +31,7 @@
                 @endforeach
                 </datalist>
                  <label for="max_tezina">max tezina: </label>
-                <input type="number" id="max_tezina" name="max_tezina"  class="input-underline">
+                <input type="number" step=0.01 min=0 id="max_tezina" name="max_tezina"  class="input-underline">
 
                  <label for="ponavljanja">Ponavljanja: </label>
                 <input type="number" id="ponavljanja" name="ponavljanja"  class="input-underline">
