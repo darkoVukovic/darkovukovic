@@ -71,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
  * 
  */
 
+/*
 Route::middleware('auth')->group(function () {
     Route::get('finance', [FinanceController::class, 'index'])->name('finance');
     Route::resource('transactions', TransactionController::class);
@@ -78,7 +79,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-
+*/
 
 Route::view('home', 'home')->name('about');
 require __DIR__.'/auth.php';

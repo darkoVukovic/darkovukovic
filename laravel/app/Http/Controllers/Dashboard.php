@@ -30,6 +30,7 @@ class Dashboard extends Controller
     $groupByMuscle = fn($day) => ($byDay->get($day) ?? collect())
     ->groupBy(fn($p) => ucfirst(strtolower($p->tip_vezbe->muscle_group)));
 
+    
     $monday    = $groupByMuscle(1);
     $tuesday   = $groupByMuscle(2);
     $wednesday = $groupByMuscle(3);
@@ -60,7 +61,7 @@ class Dashboard extends Controller
         'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
         'weeklyPlans', 'completed'
     ));
-    
+
     } 
 
 

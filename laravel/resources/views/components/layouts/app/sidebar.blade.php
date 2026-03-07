@@ -20,9 +20,6 @@
                         </flux:navlist.item>
                 </flux:navlist.group>
 
-                 <flux:navlist.group :heading="__('Finansije')" class="grid mt-5">
-                    <flux:navlist.item icon="home" :href="route('finance')" :current="request()->routeIs('finance')" class="mt-4" wire:navigate>{{ __('Finansije') }}</flux:navlist.item>
-                </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />
