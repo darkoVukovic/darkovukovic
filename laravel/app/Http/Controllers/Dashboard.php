@@ -14,97 +14,53 @@ class Dashboard extends Controller
 {
     public function index ():View {
         
-        $startOfWeek = Carbon::now()->startOfWeek();
+    $startOfWeek = Carbon::now()->startOfWeek();
+    $endOfWeek   = Carbon::now()->endOfWeek();  
+
         $userId = Auth::id();
 
-      //  $monday    = GymProgress::where('Dan', 'Ponedeljak')->latest('created_at')->first();
-      //  $tuesday   = GymProgress::where('Dan', 'Utorak')->latest('created_at')->first();
-      //  $wednesday = GymProgress::where('Dan', 'Sreda')->latest('created_at')->first();
-      //  $thursday  = GymProgress::where('Dan', 'Cetvrtak')->latest('created_at')->first();
-      //  $friday    = GymProgress::where('Dan', 'Petak')->latest('created_at')->first();
 
-      $monday = GymProgress::where('user_id', $userId)
-        ->where('Dan', 'Ponedeljak')
-        ->where('created_at', '>=', $startOfWeek)
+    $allProgress = GymProgress::where('user_id', $userId)
+        ->whereBetween('Dan', [$startOfWeek->toDateString(), $endOfWeek->toDateString()])
         ->with('tip_vezbe')
-        ->latest('created_at')
-        ->get()
-        ->groupBy(fn($progress) => ucfirst(strtolower($progress->tip_vezbe->muscle_group)));
+        ->latest('Dan')
+        ->get();
+    $byDay = $allProgress->groupBy(fn($p) => Carbon::parse($p->Dan)->dayOfWeek);
 
+    $groupByMuscle = fn($day) => ($byDay->get($day) ?? collect())
+    ->groupBy(fn($p) => ucfirst(strtolower($p->tip_vezbe->muscle_group)));
 
-        $tuesday = GymProgress::where('user_id', $userId)
-        ->where('Dan', 'Utorak')
-        ->where('created_at', '>=', $startOfWeek)
-        ->with('tip_vezbe')
-        ->latest('created_at')
-        ->get()
-        ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
-
-
-        $wednesday = GymProgress::where('user_id', $userId)
-        ->where('Dan', 'Sreda')
-        ->where('created_at', '>=', $startOfWeek)
-        ->with('tip_vezbe')
-        ->latest('created_at')
-        ->get()
-        ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
-
-        $thursday = GymProgress::where('user_id', $userId)
-        ->where('Dan', 'Cetvrtak')
-        ->where('created_at', '>=', $startOfWeek)
-        ->with('tip_vezbe')
-        ->latest('created_at')
-        ->get()
-        ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
-
-
-        $friday = GymProgress::where('user_id', $userId)
-        ->where('Dan', 'Petak')
-        ->where('created_at', '>=', $startOfWeek)
-        ->with('tip_vezbe')
-        ->latest('created_at')
-        ->get()
-        ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
-
-
-        $saturday = GymProgress::where('user_id', $userId)
-        ->where('Dan', 'Subota')
-        ->where('created_at', '>=', $startOfWeek)
-        ->with('tip_vezbe')
-        ->latest('created_at')
-        ->get()
-        ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
-
-        $sunday = GymProgress::where('user_id', $userId)
-        ->where('Dan', 'Nedelja')
-        ->where('created_at', '>=', $startOfWeek)
-        ->with('tip_vezbe')
-        ->latest('created_at')
-        ->get()
-        ->groupBy(fn($progress) => $progress->tip_vezbe->muscle_group);
-
-
-          $today = Carbon::today();
-        
-
-       $endOfWeek = $today->copy()->endOfWeek();
-
- // Get this week's planned workouts
-$weeklyPlans = Planner::where('user_id', $userId)
+    $monday    = $groupByMuscle(1);
+    $tuesday   = $groupByMuscle(2);
+    $wednesday = $groupByMuscle(3);
+    $thursday  = $groupByMuscle(4);
+    $friday    = $groupByMuscle(5);
+    $saturday  = $groupByMuscle(6);
+    $sunday    = $groupByMuscle(0);
+      
+       // Get this week's planned workouts
+      
+    
+    
+      $weeklyPlans = Planner::where('user_id', $userId)
                       ->whereBetween('planned_date', [$startOfWeek, $endOfWeek])
                       ->with('tip_vezbe')
                       ->get();
 
 
 // Get completed workouts this week
-$completed = GymProgress::where('user_id', $userId)
+
+    $completed = GymProgress::where('user_id', $userId)
                         ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
                         ->get()
                         ->keyBy(fn($p) =>  strtolower($p->tip_vezbe->naziv)); // lowercase key
 
       
-       return View('dashboard', compact(
-    'monday', 'tuesday', 'wednesday', 'thursday', 'friday','saturday', 'sunday', 'weeklyPlans', 'completed'));
+     return view('dashboard', compact(
+        'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
+        'weeklyPlans', 'completed'
+    ));
+    
     } 
 
 

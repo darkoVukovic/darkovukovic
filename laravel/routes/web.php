@@ -22,13 +22,10 @@ Route::get('dashboard', [Dashboard::class, 'index'])
     ->name('dashboard');
 
 
-Route::get('workouts', [Workouts::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('workouts');
-
 Route::get('workouts/create', [Workouts::class, 'create'])
     ->middleware(['auth', 'verified'])
-    ->name('workoutes.create');
+    ->name('workouts.create');
+
 
 
 Route::post('workouts/store', [Workouts::class, 'store'])

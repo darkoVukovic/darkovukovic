@@ -19,7 +19,7 @@ class Workouts extends Controller
             return View('workouts');
 
     }
-    
+    /*
     public function create (): View {
 
         $muscleGroups = TipVezbe::all();
@@ -35,23 +35,39 @@ class Workouts extends Controller
 
         return View('create',compact('existingExercise', 'muscleGroups'));
     } 
+    */
+
+    public function create(): View{
+    // Sve vezbe iz baze sa muscle_group (za autocomplete i JS mapu)
+    $existingExercise = TipVezbe::all(['naziv', 'muscle_group']);
+
+    // Iste vezbe koristimo i za muscle group dropdown
+    $muscleGroups = $existingExercise;
+
+    return view('create', compact('existingExercise', 'muscleGroups'));
+    }
 
     public function store (Request $request) {
     
 
 
     $request->validate([
-        'Dan' => 'required|max:15',
+        'Dan' => 'required',
         'max_tezina' => 'required|numeric',
         'ponavljanja' => 'required|numeric',
         'tip_vezbe' => 'required|max:25',
         'muscle_group' => 'required|max:50', 
     ]);
 
-    $tip_vezbe = TipVezbe::firstOrCreate([
-        'naziv' => $request->tip_vezbe,
-        'muscle_group' => $request->muscle_group
-     ]);
+   $tip_vezbe = TipVezbe::where('naziv', $request->tip_vezbe)->first();
+    
+    if (!$tip_vezbe) {
+        $tip_vezbe = TipVezbe::create([
+            'naziv'        => $request->tip_vezbe,
+            'muscle_group' => $request->muscle_group,
+            'inkrement'    => $request->inkrement ?? 2.50,
+        ]);
+    }
 
 
 
@@ -77,6 +93,9 @@ class Workouts extends Controller
     return redirect()->back()->with('success', 'Item created!');
     
     } 
+
+
+    
 
     /*
     public function storeFromPLanner (Request $request, Planner $planner) {

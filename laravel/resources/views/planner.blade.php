@@ -89,13 +89,14 @@ document.getElementById('exerciseSelect').addEventListener('change', async funct
     try {
         const response = await fetch(`/exercise/max-weight/${id}`);
         const data = await response.json();
-        if (data.max_tezina && data.max_tezina > 0) {
-                        display.textContent = `Rekord: ${data.max_tezina} kg`;
-
-        } else {
-            display.textContent = "Nema rekorda jos.";
-            goal.value = "";
-        }
+      if (data.max_tezina && data.max_tezina > 0) {
+    const predlog = parseFloat(data.max_tezina) + parseFloat(data.inkrement);
+    display.textContent = `Rekord: ${data.max_tezina} kg → Predlog: ${predlog} kg`;
+    goal.value = predlog; // auto-popuni polje
+} else {
+    display.textContent = "Nema rekorda jos.";
+    goal.value = "";
+}
     } catch (err) {
         console.error("Error fetching max weight:", err);
         display.textContent = "Neuspesno uzimanje rekord-a.";

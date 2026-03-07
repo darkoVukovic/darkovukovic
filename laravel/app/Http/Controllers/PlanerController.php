@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class PlanerController extends Controller
 {
     
+
+    
     public function index () {
         $exercises = TipVezbe::all();
         $today = Carbon::today();
@@ -48,13 +50,15 @@ class PlanerController extends Controller
 
     public function getMaxWeight ($id) {
         $userId = Auth::id();
+        $exercise = TipVezbe::find($id);
 
         $max = GymProgress::where('user_id', $userId)
-        ->where('tip_vezbe_id', $id)
-        ->max('max_tezina');
+            ->where('tip_vezbe_id', $id)
+            ->max('max_tezina');
 
-          return response()->json([
-            'max_tezina' => $max ?? 0, // 0 if no record yet
+        return response()->json([
+            'max_tezina' => $max ?? 0,
+            'inkrement'  => $exercise->inkrement ?? 2.50,
         ]);
     } 
 
