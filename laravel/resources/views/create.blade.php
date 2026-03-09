@@ -69,7 +69,7 @@
 
     <script>
         // Napravi mapu: naziv vezbe => muscle_group
-        const exercises = {
+        var exercises = {
             @foreach($existingExercise as $exercise)
                 "{{ $exercise['naziv'] }}": "{{ $exercise['muscle_group'] }}",
             @endforeach
