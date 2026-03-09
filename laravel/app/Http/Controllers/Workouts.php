@@ -49,8 +49,7 @@ class Workouts extends Controller
 
     public function store (Request $request) {
     
-
-
+    
     $request->validate([
         'Dan' => 'required',
         'max_tezina' => 'required|numeric',
@@ -58,6 +57,7 @@ class Workouts extends Controller
         'tip_vezbe' => 'required|max:25',
         'muscle_group' => 'required|max:50', 
     ]);
+
 
    $tip_vezbe = TipVezbe::where('naziv', $request->tip_vezbe)->first();
     

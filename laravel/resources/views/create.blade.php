@@ -79,14 +79,16 @@
     const tipVezbeInput = document.getElementById('tip_vezbe');
     const muscleGroupWrapper = document.getElementById('muscle_group_wrapper');
     const inkrementWrapper = document.getElementById('inkrement_wrapper');
-
+  
     if (!tipVezbeInput) return; // nije na ovoj stranici
-
+    
     tipVezbeInput.addEventListener('input', function () {
         const selected = exercises[this.value];
         if (selected) {
+            document.getElementById('muscle_group').value = selected; // ← ovo nedostaje!
             muscleGroupWrapper.style.display = 'none';
             inkrementWrapper.style.display = 'none';
+            
         } else {
             muscleGroupWrapper.style.display = 'block';
             inkrementWrapper.style.display = 'block';
