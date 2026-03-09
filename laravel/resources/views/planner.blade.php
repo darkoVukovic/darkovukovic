@@ -4,7 +4,22 @@
     </div>
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl"> 
             <h1 class="text-center text-3xl">Planer {{$vreme}}</h1>
+    <div class='mx-auto'>
+        <form action="{{ route('planner.suggest') }}" method="POST">
+            @csrf
+            <button type="submit" class="bg-blue-500 px-4 py-3 text-white rounded-xl text-lg">
+                🔄 Predloži plan iz prošle nedelje
+            </button>
+        </form>
 
+        @if(session('success'))
+            <p class="text-green-400 text-center">{{ session('success') }}</p>
+        @endif
+
+        @if(session('error'))
+            <p class="text-red-400 text-center">{{ session('error') }}</p>
+        @endif
+    </div>
    <form action="{{ route('planner.store') }}" method="POST" class="flex flex-col max-w-xl mx-auto w-full p-4 bg-white shadow rounded space-y-4" >
     @csrf
 

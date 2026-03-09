@@ -20,8 +20,7 @@ class PlanerController extends Controller
         
 
        $startOfWeek = $today->copy()->startOfWeek();
-       $endOfWeek = $today->copy()->endOfWeek();
-        $userId = Auth::id();
+        $endOfWeek = Carbon::now()->addWeek()->endOfWeek();        $userId = Auth::id();
 
         $planner = Planner::with('tip_vezbe')
         ->where('user_id', $userId) // column name in quotes
@@ -46,6 +45,58 @@ class PlanerController extends Controller
     $plan->delete();
 
     return redirect()->back()->with('success', 'Plan obrisan.');
+}
+
+public function suggestFromLastWeek() {
+    $userId = Auth::id();
+    $lastWeekStart = Carbon::now()->subWeek()->startOfWeek();
+    $lastWeekEnd   = Carbon::now()->subWeek()->endOfWeek();
+    $nextWeekStart = Carbon::now()->addWeek()->startOfWeek();
+
+    // Uzmi sve vezbe iz prosle nedelje
+    $lastWeek = GymProgress::where('user_id', $userId)
+        ->whereBetween('Dan', [$lastWeekStart, $lastWeekEnd])
+        ->with('tip_vezbe')
+        ->get();
+
+    if ($lastWeek->isEmpty()) {
+        return back()->with('error', 'Nema podataka iz prošle nedelje.');
+    }
+
+    // Grupisi po danu i vezbi, uzmi max tezinu
+    $inserted = 0;
+    $skipped  = 0;
+
+    $lastWeek->groupBy('tip_vezbe_id')->each(function ($entries) use ($userId, $nextWeekStart, &$inserted, &$skipped) {
+        $tipVezbe  = $entries->first()->tip_vezbe;
+        $maxTezina = $entries->max('max_tezina');
+        $dayOfWeek = Carbon::parse($entries->first()->Dan)->dayOfWeek; // isti dan sledece nedelje
+        $plannedDate = $nextWeekStart->copy()->addDays($dayOfWeek - 1);
+
+        // Ne dupliraj ako vec postoji plan za tu vezbu
+        $exists = Planner::where('user_id', $userId)
+            ->where('tip_vezbe_id', $tipVezbe->id)
+            ->where('planned_date', $plannedDate)
+            ->exists();
+
+        if ($exists) {
+            $skipped++;
+            return;
+        }
+
+        Planner::create([
+            'user_id'      => $userId,
+            'tip_vezbe_id' => $tipVezbe->id,
+            'goal_weight'  => $maxTezina + $tipVezbe->inkrement,
+            'goal_reps'    => $entries->first()->ponavljanja,
+            'planned_date' => $plannedDate,
+            'status'       => 'pending',
+        ]);
+
+        $inserted++;
+    });
+
+    return back()->with('success', "Generisano {$inserted} planova, preskočeno {$skipped} duplikata.");
 }
 
     public function getMaxWeight ($id) {

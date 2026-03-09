@@ -57,6 +57,10 @@ Route::get('/exercise/max-weight/{id}', [PlanerController::class, 'getMaxWeight'
 
 Route::delete('/planner/{plan}', [PlanerController::class, 'destroy'])->name('planner.destroy');
 
+
+Route::post('planner/suggest', [PlanerController::class, 'suggestFromLastWeek'])->name('planner.suggest');// planer ruta za automatizaciju
+
+
 //Route::post('planner/complete/{planner}', [Workouts::class, 'storeFromPLanner'])->name('planner.complete');
 
 // records routes

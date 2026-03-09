@@ -15,7 +15,8 @@ class Dashboard extends Controller
     public function index ():View {
         
     $startOfWeek = Carbon::now()->startOfWeek();
-    $endOfWeek   = Carbon::now()->endOfWeek();  
+    $endOfWeek = Carbon::now()->addWeek()->endOfWeek();    
+
 
         $userId = Auth::id();
 
