@@ -69,25 +69,29 @@
 
     <script>
         // Napravi mapu: naziv vezbe => muscle_group
-        var exercises = {
-            @foreach($existingExercise as $exercise)
-                "{{ $exercise['naziv'] }}": "{{ $exercise['muscle_group'] }}",
-            @endforeach
-        };
+      document.addEventListener('livewire:navigated', function () {
+    const exercises = {
+        @foreach($existingExercise as $exercise)
+            "{{ $exercise->naziv }}": "{{ $exercise->muscle_group }}",
+        @endforeach
+    };
 
-        const tipVezbeInput = document.getElementById('tip_vezbe');
-      const muscleGroupWrapper = document.getElementById('muscle_group_wrapper');
-const inkrementWrapper = document.getElementById('inkrement_wrapper');
+    const tipVezbeInput = document.getElementById('tip_vezbe');
+    const muscleGroupWrapper = document.getElementById('muscle_group_wrapper');
+    const inkrementWrapper = document.getElementById('inkrement_wrapper');
 
-tipVezbeInput.addEventListener('input', function () {
-    const selected = exercises[this.value];
-    if (selected) {
-        muscleGroupWrapper.style.display = 'none';
-        inkrementWrapper.style.display = 'none';
-    } else {
-        muscleGroupWrapper.style.display = 'block';
-        inkrementWrapper.style.display = 'block';
-    }
+    if (!tipVezbeInput) return; // nije na ovoj stranici
+
+    tipVezbeInput.addEventListener('input', function () {
+        const selected = exercises[this.value];
+        if (selected) {
+            muscleGroupWrapper.style.display = 'none';
+            inkrementWrapper.style.display = 'none';
+        } else {
+            muscleGroupWrapper.style.display = 'block';
+            inkrementWrapper.style.display = 'block';
+        }
+    });
 });
 
         
