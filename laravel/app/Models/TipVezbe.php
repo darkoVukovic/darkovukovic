@@ -16,4 +16,8 @@ class TipVezbe extends Model
 }
 
 
+public function getMuscleGroupAttribute($value) {
+        return ucfirst(strtolower($value));
+}
+
 }

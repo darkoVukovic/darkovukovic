@@ -44,12 +44,16 @@
 
                <div id="muscle_group_wrapper">
                     <label for="muscle_group">Muscle Group:</label>
-                    <input list="muscleGroups" name="muscle_group" id="muscle_group" placeholder="Type or select" class="input-underline">
-                    <datalist id="muscleGroups">
-                        @foreach($muscleGroups as $group)
-                            <option value="{{ $group->name }}"></option>
-                        @endforeach
-                    </datalist>
+                    <select name="muscle_group" id="muscle_group" class="input-underline">
+                        <option value="">-- Izaberi --</option>
+                        <option value="Biceps">Biceps</option>
+                        <option value="Triceps">Triceps</option>
+                        <option value="Grudi">Grudi</option>
+                        <option value="Ledja">Leđa</option>
+                        <option value="Noge">Noge</option>
+                        <option value="Ramena">Ramena</option>
+                        <option value="Stomak">Stomak</option>
+                    </select>
                 </div>
                 <button class="bg-pink-500 px-4 py-6 text-white rounded-xl text-2xl ">Sacuvaj</button>
             </form>

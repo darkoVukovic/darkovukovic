@@ -55,7 +55,7 @@ class Workouts extends Controller
         'max_tezina' => 'required|numeric',
         'ponavljanja' => 'required|numeric',
         'tip_vezbe' => 'required|max:25',
-        'muscle_group' => 'required|max:50', 
+        'muscle_group' => 'required|in:Biceps,Triceps,Grudi,Ledja,Noge,Ramena,Stomak',
     ]);
 
 
