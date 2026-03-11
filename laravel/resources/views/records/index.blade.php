@@ -29,6 +29,28 @@
             @endif
         </div>
     </form>
+    <div class="flex flex-wrap gap-2 mb-4 mt-4">
+    <a href="{{ route('records', array_merge(request()->except('muscle_group'), [])) }}"
+       class="px-3 py-1 rounded-lg text-sm {{ !request('muscle_group') ? 'bg-[#ff006e] text-white' : 'bg-gray-700 text-white' }}">
+        Sve
+    </a>
+    @foreach($muscleGroups as $group)
+        <a href="{{ route('records', array_merge(request()->all(), ['muscle_group' => $group])) }}"
+           class="px-3 py-1 rounded-lg text-sm {{ request('muscle_group') === $group ? 'bg-[#ff006e] text-white' : 'bg-gray-700 text-white' }}">
+            {{ $group }}
+        </a>
+    @endforeach
+    </div>
+    <div class="flex gap-2 mb-4">
+    <a href="{{ route('records', array_merge(request()->all(), ['sort' => 'personal_record', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])) }}"
+       class="px-3 py-1 rounded-lg text-sm {{ request('sort', 'personal_record') === 'personal_record' ? 'bg-[#ff006e] text-white' : 'bg-gray-700 text-white' }}">
+        Težina {{ request('sort') === 'personal_record' ? (request('direction') === 'asc' ? '↑' : '↓') : '↕' }}
+    </a>
+    <a href="{{ route('records', array_merge(request()->all(), ['sort' => 'naziv', 'direction' => request('direction') === 'asc' ? 'desc' : 'asc'])) }}"
+       class="px-3 py-1 rounded-lg text-sm {{ request('sort') === 'naziv' ? 'bg-[#ff006e] text-white' : 'bg-gray-700 text-white' }}">
+        Naziv {{ request('sort') === 'naziv' ? (request('direction') === 'asc' ? '↑' : '↓') : '↕' }}
+    </a>
+</div>
         </div>
         
         <div class="grid gap-4">
